@@ -6,6 +6,8 @@ import { Post } from "../../utils/types";
 import { useNavigate } from "react-router-dom";
 
 import { TiArrowBack } from "@react-icons/all-files/ti/TiArrowBack";
+import { fetchUsers } from "../../services/fetchUsers";
+import { fetchPosts } from "../../services/fetchPosts";
 
 const PostDetails = () => {
 	const { id } = useParams();
@@ -15,30 +17,38 @@ const PostDetails = () => {
 	);
 	const loading = useAppSelector((state) => state.posts.loading);
 	const error = useAppSelector((state) => state.posts.error);
-	const [post, setPost] = useState<Post | null>(null); // Store post data in local state
+	const users = useAppSelector((state) => state.users.data);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		// Set the post data in local state when it is fetched
-		if (data) {
-			setPost(data);
-		}
-	}, [data]);
+		dispatch(fetchPosts());
+		dispatch(fetchUsers());
+	}, [dispatch]);
+
+	const author = users.find((user) => user.id === data?.userId)?.name;
 
 	if (loading) {
 		return (
-			<div className="mx-auto grid grid-cols-1">
+			<div className="flex justify-center items-center h-screen">
 				<Spinner />
 			</div>
 		);
 	}
 
 	if (error) {
-		return <div>Error: {error}</div>;
+		return (
+			<div className="flex justify-center items-center h-screen">
+				Error: {error}
+			</div>
+		);
 	}
 
-	if (!post) {
-		return <div>Post not found</div>;
+	if (!data) {
+		return (
+			<div className="flex justify-center items-center h-screen">
+				Post not found
+			</div>
+		);
 	}
 
 	return (
@@ -51,14 +61,14 @@ const PostDetails = () => {
 			</button>
 			<div className="">
 				<h1 className="text-orange-500 font-bold my-5">
-					{post.title.toUpperCase()}
+					{data.title.toUpperCase()}
 				</h1>
 			</div>
-			<p className=" text-blue-500">id: {post.id}</p>
+			<p className=" text-blue-500">id: {data.id}</p>
 
-			<p>{post.body.charAt(0).toUpperCase() + post.body}</p>
+			<p>{data.body.charAt(0).toUpperCase() + data.body}</p>
 			<p className="my-3">
-				{/* created by:<span className="text-purple-600"> {post.author}</span> */}
+				created by:<span className="text-purple-600"> {author}</span>
 			</p>
 		</div>
 	);

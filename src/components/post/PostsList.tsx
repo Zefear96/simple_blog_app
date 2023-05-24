@@ -22,22 +22,6 @@ const PostsList = () => {
 		dispatch(fetchUsers());
 	}, [dispatch]);
 
-	// const handleCreatePost = () => {
-	// 	const newPost = { title: "New Post", body: "This is a new post." };
-	// 	dispatch(createPost(newPost));
-	// };
-
-	// const handleUpdatePost = (postId: number) => {
-	// 	const updatedPost = {
-	// 		title: "Updated Post",
-	// 		body: "This post has been updated.",
-	// 	};
-	// 	dispatch(updatePost({ id: postId, postData: updatedPost }));
-	// };
-
-	// const handleDeletePost = (postId: number) => {
-	// 	dispatch(deletePost(postId));
-	// };
 	function handleFindAuthor(post: Post) {
 		const user = users.find((user) => user.id === post.userId);
 		return user ? user.name : "";
@@ -45,34 +29,32 @@ const PostsList = () => {
 
 	if (loading) {
 		return (
-			<div className=" mx-auto grid grid-cols-1">
+			<div className="flex justify-center items-center h-screen">
 				<Spinner />
 			</div>
 		);
 	}
 
 	if (error) {
-		return <div>Error: {error}</div>;
+		return (
+			<div className="flex justify-center items-center h-screen">
+				Error: {error}
+			</div>
+		);
 	}
 
 	return (
-		<section className="">
-			{loading ? (
-				<div className=" ">
-					<Spinner />
-				</div>
-			) : (
-				<div className=" w-3/4 grid grid-cols-3 mx-auto gap-5 m-10 max-md:grid-cols-1">
-					{posts.map((post) => (
-						<PostElement
-							key={post.id}
-							post={post}
-							loading={loading}
-							author={handleFindAuthor(post)}
-						/>
-					))}
-				</div>
-			)}
+		<section className=" flex justify-center items-center m-auto">
+			<div className=" w-3/4 grid grid-cols-3 mx-auto gap-5 m-10 max-md:grid-cols-1">
+				{posts.map((post) => (
+					<PostElement
+						key={post.id}
+						post={post}
+						loading={loading}
+						author={handleFindAuthor(post)}
+					/>
+				))}
+			</div>
 		</section>
 	);
 };
