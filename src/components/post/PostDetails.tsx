@@ -52,25 +52,27 @@ const PostDetails = () => {
 	}
 
 	return (
-		<div className="w-3/4 shadow-2xl p-5 mx-auto mt-20 rounded-xl">
+		<section className=" w-3/4 mx-auto my-20 text-lg">
 			<button
 				className=" border-yellow-500 flex items-center p-2 transition-all hover:scale-125 "
 				onClick={() => navigate(-1)}
 			>
 				<TiArrowBack className=" mr-1" color="red" /> Back
 			</button>
-			<div className="">
-				<h1 className="text-orange-500 font-bold my-5">
-					{data.title.toUpperCase()}
-				</h1>
-			</div>
-			<p className=" text-blue-500">id: {data.id}</p>
+			<div className=" shadow-2xl p-5 mx-auto mt-20 rounded-xl">
+				<div className="">
+					<h1 className="text-orange-500 font-bold my-5">
+						{data.title.toUpperCase()}
+					</h1>
+				</div>
+				<p className=" text-blue-500">id: {data.id}</p>
 
-			<p>{data.body.charAt(0).toUpperCase() + data.body}</p>
-			<p className="my-3">
-				created by:<span className="text-purple-600"> {author}</span>
-			</p>
-		</div>
+				<p>{data.body.charAt(0).toUpperCase() + data.body}</p>
+				<p className="my-3">
+					created by:<span className="text-purple-600"> {author}</span>
+				</p>
+			</div>
+		</section>
 	);
 };
 

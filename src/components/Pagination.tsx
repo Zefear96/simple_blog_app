@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-import { Post } from "../utils/types";
-
 type PaginationProps = {
 	pageNumbers: number[];
 	currentPage: number;

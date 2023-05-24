@@ -15,18 +15,18 @@ const PostElement = ({
 
 	return (
 		<div className=" shadow-lg mx-auto border-solid p-4 rounded-xl">
-			<div className=" h-14">
+			<div className=" h-14  my-5">
 				<h1 className=" text-orange-500 font-bold mt-5">
 					{post.title.toUpperCase()}
 				</h1>
 			</div>
 
-			<p className=" h-24">
+			<p className=" h-24 my-10">
 				{post.body.charAt(0).toUpperCase() +
 					post.body.substring(0, 120) +
 					"..."}
 			</p>
-			<p className=" my-3">
+			<p className=" my-5">
 				created by:
 				<span className=" text-purple-600 "> {author}</span>
 			</p>
